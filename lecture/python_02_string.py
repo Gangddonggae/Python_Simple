@@ -47,6 +47,7 @@ print(msg[:])   # 처음부터 끝까지
 print(msg[18:])
 print(msg[-4:])
 
+
 # 4. 문자열 함수
 str = "Hello World"
 

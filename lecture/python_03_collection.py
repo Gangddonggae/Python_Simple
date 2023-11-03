@@ -19,7 +19,7 @@ list_c = ["chosun", 5, 3.14, [1, 2, 3]]
 
 # packing and unpacking
 list_d = ["A", "B", "C"] #packing
-a, b, c = ["A", "B", "C"] #unpacking
+a, b, c = "A", "B", "C" #unpacking
 #a = A, b = B, c=C 로 들어감
 
 # JAVA or C에서 unpacking하는법
@@ -45,7 +45,7 @@ c = a+b
 print(c)
 
 # remove(값) : 리스트 내 원소를 값으로 삭제
-# pow(인덱스) : 리스트 내 원소를 인덱스로 삭제
+# pop(인덱스) : 리스트 내 원소를 인덱스로 삭제
 abc = [1,2,3,4,5]
 abc.remove(3) # 3이라는 값
 print(abc)
@@ -91,6 +91,7 @@ b = 1, 2, 3    # tuple
 c = (1)        # tuple
 d = 1          # int
 e = 1,         # tuple
+
 print(type(b))
 print(type(d))
 print(type(e))

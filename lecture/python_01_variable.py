@@ -38,7 +38,7 @@ print("Hello \t python")
 #  - 특정 값: 0~9 -> 어떤 Type을 사용하면 효울적일까요? short 하지만 요즘은 공간이 남아 int만사용
 
 # 3.동적 타이핑 언어(Dynamic Typing Language)
-#  - JANA: int num = 4;
+#  - JAVA: int num = 4;
 #  - Python: num = 4 (Type 지정 X)
 #  - 코드가 실행될 때 자동으로 Type을 지정
 #  - type() 함수: ()안의 값의 Type을 확인할 때 사용
@@ -175,6 +175,8 @@ num + 2
 print(num)
 # num의 값은??
 # 9 = 표시가 없으면 값은 변하지 않는다
+
+# input 은 항상 문자열 타입으로 받아옴
 
 # 영타 250~ 400타
 # 좋은 개발자! : 누구나 알아보기 쉽게 코드를 작성하는 사람
