@@ -1,5 +1,4 @@
 # SELENIUM
-
 #pip install selenium
 #pip install webdriver_manager
 
@@ -19,6 +18,7 @@
 import math
 import re
 import time
+from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -32,7 +32,7 @@ options.add_experimental_option("detach", True)
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=options)
 
 # 2. URL 접속
-url = ("https://movie.daum.net/moviedb/grade?movieId=165591")
+url = ("https://movie.daum.net/moviedb/grade?movieId=169137")
 driver.get(url)
 time.sleep(2)
 # 3. 페이지 전체 코드 가져오기
@@ -77,4 +77,36 @@ for i in range(click_cnt):
 # 8. 전체 소스코드 가져오기
 doc_html = driver.page_source
 doc = BeautifulSoup(doc_html, "html.parser")
-review_list = doc.select("")
+review_list = doc.select("ul.list_comment > li")
+print(f"= 전체 리뷰 : {len(review_list)}건")
+
+# item: 리뷰 1건(평점, 리뷰, 작성자, 작성일자)
+for item in review_list:
+    print("=" *100)
+
+    review_score = item.select("div.ratings")[0].get_text()
+    print(f"  -평점: {review_score}")
+
+    review_content = item.select("p.desc_txt")[0].get_text().strip()
+    #\n : 한 줄 개행 -> \n을 제거
+    review_content = re.sub("\n","",review_content)
+    print(f"  -리뷰: {review_content}")
+
+    review_writter = item.select("a.link_nick > span")[1].get_text() #[2]안에 숫자는 몇번째 text를 가져올건지 고르는것
+    print(f"  -작성자: {review_writter}")
+
+    review_date = item.select("span.txt_date")[0].get_text()
+    # 24시간 이내에 작성 된 리뷰의 날짜 -> 24시간전, 3시간전 -> 다음영화 날짜(2023. 11. 17. 2:12)
+    # 1. 24시간전, 17시간전과 같은 날짜 찾기
+    if len(review_date) < 7:
+        # 2) "17시간" -> 숫자만 추출 17
+        reg_hour = int(re.sub(r"[^~0-9]","", review_date))
+        # 3) 등록일자 = 현재시간 - 17
+        #print(f"현재시간: {datetime.now()}") #년월일시분초나노초
+        review_date = datetime.now() - timedelta(hours=reg_hour)
+        #print(f"등록시간: {review_date}")
+        # 날짜 계산 = 현재시간 - 17시간전
+        # 4) 계산된 등록일자, 날짜 포맷 변경(다음 영화 리뷰 날짜 포맷)
+        review_date = review_date.strftime("%Y. %m.%d.%H:%M")
+
+    print(f"  -날짜: {review_date}")
