@@ -24,8 +24,8 @@ def connection():
             db="simple",
             charset="utf8",
             autocommit=True,
-            cursorclass=pymysql.cursoors.DictCursor
+            cursorclass=pymysql.cursors.DictCursor
         )
         return conn
-    except pymysl.Error as e:
+    except pymysql.Error as e:
         print(f"MARIADB 연결 실패 {e}")
